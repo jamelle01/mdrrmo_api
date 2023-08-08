@@ -1,0 +1,5 @@
+composer create-project --prefer-dist laravel/laravel 
+
+composer require laravel/passport --with-all-dependencies
+
+php artisan passport:install
