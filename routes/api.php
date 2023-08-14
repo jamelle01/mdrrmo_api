@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +15,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\API\PassportAuthController;
+use App\Http\Controllers\API\ProductController;
+ 
+Route::prefix('v1')->group(function () {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
+    
+    Route::middleware('auth:api')->group(function () {
+        Route::get('get-user', [PassportAuthController::class, 'userInfo']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+        Route::post('logout', [PassportAuthController::class, 'logout']);
+    
+        Route::resource('products', ProductController::class);
+    
+    });
 });
+
+
+
+// Route::middleware('auth:api')->group(function () {
+//     Route::resource('products', ProductController::class);
+// });

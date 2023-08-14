@@ -64,3 +64,60 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+```
+blog-api-laravel
+├─ .editorconfig
+├─ .git
+├─ .gitattributes
+├─ .gitignore
+├─ .rnd
+├─ app
+│  ├─ Console
+│  ├─ Exceptions
+│  ├─ Http
+│  │  ├─ Controllers
+│  │  │  ├─ Api
+│  │  │  │  ├─ PassportAuthController.php
+│  │  │  │  └─ ProductController.php
+│  │  │  └─ Controller.php
+│  │  ├─ Kernel.php
+│  │  └─ Middleware
+│  │     ├─ Authenticate.php
+│  │     ├─ EncryptCookies.php
+│  │     ├─ PreventRequestsDuringMaintenance.php
+│  │     ├─ RedirectIfAuthenticated.php
+│  │     ├─ TrimStrings.php
+│  │     ├─ TrustHosts.php
+│  │     ├─ TrustProxies.php
+│  │     ├─ ValidateSignature.php
+│  │     └─ VerifyCsrfToken.php
+│  ├─ Models
+│  │  ├─ Product.php
+│  │  └─ User.php
+│  └─ Providers
+│     ├─ AppServiceProvider.php
+│     ├─ AuthServiceProvider.php
+│     ├─ BroadcastServiceProvider.php
+│     ├─ EventServiceProvider.php
+│     └─ RouteServiceProvider.php
+├─ artisan
+├─ bootstrap
+├─ composer.json
+├─ composer.lock
+├─ config
+├─ database
+├─ documents.txt
+├─ package.json
+├─ phpunit.xml
+├─ public
+├─ README.md
+├─ resources
+├─ routes
+│  ├─ api.php
+│  ├─ channels.php
+│  ├─ console.php
+│  └─ web.php
+├─ storage
+├─ tests
+```
