@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,15 +20,15 @@ class PassportAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
-  
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-  
+
         $token = $user->createToken('Laravel8PassportAuth')->accessToken;
-  
+
         return response()->json(['token' => $token], 200);
     }
 
@@ -41,7 +41,7 @@ class PassportAuthController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ];
-  
+
         if (auth()->attempt($data)) {
             $token = auth()->user()->createToken('Laravel8PassportAuth')->accessToken;
             return response()->json(['token' => $token], 200);
@@ -58,18 +58,18 @@ class PassportAuthController extends Controller
         $request->user()->token()->revoke();
         return response()->json(['message' => 'Successfully logged out'], 200);
     }
-    
+
     /**
      * Get User
      */
- 
-    public function userInfo() 
+
+    public function userInfo()
     {
- 
+
      $user = auth()->user();
-      
+
      return response()->json(['user' => $user], 200);
- 
+
     }
 
 }
