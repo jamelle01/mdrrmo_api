@@ -1,9 +1,7 @@
 <?php
 
 // use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-
+use App\Http\Controllers\API\v1\PassportAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +12,11 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
-use App\Http\Controllers\API\v1\PassportAuthController;
+ */
 use App\Http\Controllers\API\v1\ProductController;
 use App\Http\Controllers\API\v1\ProjectController;
+use App\Http\Controllers\API\v1\TransactionController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::post('register', [PassportAuthController::class, 'register']);
@@ -33,12 +32,13 @@ Route::prefix('v1')->group(function () {
         // crud for products
         Route::resource('products', ProductController::class);
 
-        //
+        // crud for projects
         Route::resource('projects', ProjectController::class);
+
+        // crud for transactions
+        Route::resource('transactions', TransactionController::class);
     });
 });
-
-
 
 // Route::middleware('auth:api')->group(function () {
 //     Route::resource('products', ProductController::class);
