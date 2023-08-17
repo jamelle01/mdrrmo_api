@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\FundObligation;
 use Illuminate\Http\Request;
 use Validator;
 
-class ProductController extends Controller
+class FundObligationController extends Controller
 {
+    //
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +17,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $fundObligations = FundObligation::all();
 
         return response()->json([
             "success" => true,
-            "message" => "Product List",
-            "data" => $products,
+            "message" => "Fund Obligation List",
+            "data" => $fundObligations,
         ]);
     }
     /**
@@ -34,21 +35,29 @@ class ProductController extends Controller
     {
         $input = $request->all();
 
+        $latestFundObligationId = FundObligation::latest('id')->value('id');
+
+        $latestFundObligationId++;
+
+        $input['Fund_Obligation_Key'] = 'FO_' . $latestFundObligationId;
+        // $input['Project_Key'] = 'FO_' . $latestFundObligationId;
+
         $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required',
+            'Project_Key' => 'required',
+            'Obligation_Date' => 'required',
+            'Fund_Obligated' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $product = Product::create($input);
+        $fundObligation = FundObligation::create($input);
 
         return response()->json([
             "success" => true,
-            "message" => "Product created successfully.",
-            "data" => $product,
+            "message" => "Fund Obligation created successfully.",
+            "data" => $fundObligation,
         ]);
 
     }
@@ -61,16 +70,16 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $fundObligation = FundObligation::find($id);
 
-        if (is_null($product)) {
-            return $this->sendError('Product not found.');
+        if (is_null($fundObligation)) {
+            return $this->sendError('Fund Obligation not found.');
         }
 
         return response()->json([
             "success" => true,
-            "message" => "Product retrieved successfully.",
-            "data" => $product,
+            "message" => "Fund Obligation retrieved successfully.",
+            "data" => $fundObligation,
         ]);
 
     }
@@ -82,27 +91,29 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, FundObligation $fundObligation)
     {
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required',
+            'Project_Key' => 'required',
+            'Obligation_Date' => 'required',
+            'Fund_Obligated' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $product->name = $input['name'];
-        $product->detail = $input['detail'];
-        $product->save();
+        $fundObligation->Project_Key = $input['Project_Key'];
+        $fundObligation->Obligation_Date = $input['Obligation_Date'];
+        $fundObligation->Fund_Obligated = $input['Fund_Obligated'];
+        $fundObligation->save();
 
         return response()->json([
             "success" => true,
-            "message" => "Product updated successfully.",
-            "data" => $product,
+            "message" => "Fund obligation updated successfully.",
+            "data" => $fundObligation,
         ]);
     }
 
@@ -112,14 +123,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(FundObligation $fundObligation)
     {
-        $product->delete();
+        $fundObligation->delete();
 
         return response()->json([
             "success" => true,
-            "message" => "Product deleted successfully.",
-            "data" => $product,
+            "message" => "Fund Obligation deleted successfully.",
+            "data" => $fundObligation,
         ]);
     }
 }

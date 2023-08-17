@@ -16,6 +16,8 @@ use App\Http\Controllers\API\v1\PassportAuthController;
 use App\Http\Controllers\API\v1\ProductController;
 use App\Http\Controllers\API\v1\ProjectController;
 use App\Http\Controllers\API\v1\TransactionController;
+use App\Http\Controllers\API\v1\FundObligationController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -37,6 +39,9 @@ Route::prefix('v1')->group(function () {
 
         // crud for transactions
         Route::resource('transactions', TransactionController::class);
+
+        // crud for FundObligations
+        Route::resource('fund_obligations', FundObligationController::class);
     });
 });
 
